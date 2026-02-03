@@ -1,10 +1,19 @@
-# Phase Execution Prompt — action_relay
+# Phase Execution Prompt (Canonical)
 
-Implement only the requested phase.
+You are implementing the requested phase ONLY.
 
-Phase 1 focus:
-- Make it trivially easy to submit a valid intent packet to intent_normaliser.
-- Ensure examples conform to contracts.
-- Keep tests docker-runnable: `docker compose run --rm test smoke`.
+Rules:
+- Do not implement future phases.
+- Do not refactor unrelated code.
+- Follow docs/intent.md.
+- Update docs/current_state.md after changes.
+- Use the smallest safe assumptions; document them.
+- If verification fails twice, stop and report.
 
-Update `docs/current_state.md` for behavioural changes.
+## Mandatory enforcement (Drift Guard MCP)
+Before claiming completion, call these MCP tools and ensure ok=true:
+- repo_contract_validate()
+- verify_run(profile="default")
+- drift_check()
+
+Include the returned JSON in your final phase report.
